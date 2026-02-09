@@ -1,0 +1,78 @@
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  ScrollView,
+  Platform,
+  Animated,
+  Easing,
+  Vibration,
+  Share,
+  Dimensions,
+} from "react-native";
+import * as Haptics from "expo-haptics";
+import { Audio } from "expo-av";
+import * as Sharing from "expo-sharing";
+import * as FileSystem from "expo-file-system";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { captureRef } from "react-native-view-shot";
+
+const { width: SCREEN_W, height: SCREEN_H } = Dimensions.get("window");
+
+// ---------------- STORAGE KEYS ----------------
+const STORAGE = {
+  STATS: "dangman_stats_v1",
+  SETTINGS: "dangman_settings_v1",
+};
+
+// ---------------- WORD PACKS ----------------
+const PACKS = {
+  MIXED: {
+    title: "Mixed",
+    words: [
+      { w: "BITCOIN", c: "Tokens" },
+      { w: "ETHEREUM", c: "Tokens" },
+      { w: "SOLANA", c: "Tokens" },
+      { w: "BASE", c: "Networks" },
+      { w: "AVALANCHE", c: "Tokens" },
+      { w: "BLOCKCHAIN", c: "Tech" },
+      { w: "LEDGER", c: "Tech" },
+      { w: "HASHRATE", c: "Tech" },
+      { w: "SMARTCONTRACT", c: "Tech" },
+      { w: "AIRDROP", c: "Culture" },
+      { w: "HODL", c: "Slang" },
+      { w: "FOMO", c: "Slang" },
+      { w: "REKT", c: "Slang" },
+      { w: "WAGMI", c: "Slang" },
+      { w: "NGMI", c: "Slang" },
+      { w: "GASFEES", c: "Pain" },
+      { w: "LIQUIDITY", c: "Markets" },
+      { w: "MARKETCAP", c: "Markets" },
+      { w: "RUGPULL", c: "Culture" },
+      { w: "DIAMONDHANDS", c: "Culture" },
+      { w: "SATOSHI", c: "Legends" },
+      { w: "VITALIK", c: "Legends" },
+      { w: "MEMECOIN", c: "Culture" },
+      { w: "FLOORPRICE", c: "NFTs" },
+      { w: "METADATA", c: "NFTs" },
+      { w: "ROYALTIES", c: "NFTs" },
+      { w: "IPFS", c: "Tech" },
+      { w: "BRIDGE", c: "Tech" },
+      { w: "ROLLUP", c: "Tech" },
+      { w: "VALIDATOR", c: "Tech" },
+      { w: "SEQUENCER", c: "Tech" },
+      { w: "ONCHAIN", c: "Culture" },
+    ],
+  },
+  BASE: {
+    title: "Base Pack",
+    words: [
+      { w: "BASE", c: "Networks" },
+      { w: "COINBASE", c: "Brands" },
+      { w: "BRIDGE", c: "Tech" },
+      { w: "ONCHAIN", c: "Culture" },
+      { w: "SEQUENCER", c: "Tech" },
+      { w: "
