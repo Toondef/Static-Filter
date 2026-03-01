@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Walking Robot</title>
+<style>
+  body {
+    background: #f0f0f0;
+    overflow: hidden;
+  }
+  #robot {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 40%;
+    left: -100px;
+    animation: walk 5s linear forwards;
+  }
+  .head {
+    width: 80px;
+    height: 80px;
+    background: #cccccc;
+    border: 3px solid #333333;
+    border-radius: 10px;
+    position: relative;
+  }
+  .eye {
+    width: 12px;
+    height: 12px;
+    background: #333333;
+    border-radius: 50%;
+    position: absolute;
+    top: 25px;
+  }
+  .eye.left {
+    left: 20px;
+  }
+  .eye.right {
+    right: 20px;
+  }
+  .mouth {
+    width: 30px;
+    height: 6px;
+    background: #333333;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: smile 5s linear forwards;
+  }
+  @keyframes walk {
+    from { left: -100px; }
+    to { left: 100vw; }
+  }
+  @keyframes smile {
+    0%, 80% { border-radius: 0; height: 6px; }
+    90%, 100% { border-radius: 0 0 20px 20px; height: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div id="robot">
+    <div class="head">
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="mouth"></div>
+    </div>
+  </div>
+</body>
+</html>
